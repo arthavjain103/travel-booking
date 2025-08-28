@@ -1,0 +1,97 @@
+{% extends "base.html" %} {% block title %}Home | Travel Booking{% endblock %}
+{% block content %}
+<!-- Hero Section -->
+<section
+  class="hero-section d-flex justify-content-center align-items-center text-center"
+  style="
+    background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
+      url('https://www.fusioninformatics.com/blog/wp-content/uploads/2019/06/Online-Travel-Ticket-Booking-App-Development-1.png')
+        no-repeat center center/cover;
+    min-height: 100vh;   /* full screen */
+    color: #fff;         /* force white text */
+  "
+>
+  <div class="container ">
+    <h1 class="display-3 fw-bold mb-3 text-uppercase text-white"
+        style="text-shadow: 2px 2px 8px rgba(0,0,0,0.7);">
+      ✈️ Travel Booking Made Easy
+    </h1>
+    <p class="lead fw-bold mb-4 text-white"
+       style="text-shadow: 1px 1px 6px rgba(0,0,0,0.6);">
+      Plan, book, and explore destinations worldwide with just a few clicks!
+    </p>
+
+    {% if user.is_authenticated %}
+    <a
+      href="{% url 'search_travel' %}"
+      class="btn btn-lg btn-light me-2 shadow-sm px-4 py-2 fw-bold"
+      >Search Travels</a>
+    <a
+      href="{% url 'my_bookings' %}"
+      class="btn btn-lg btn-outline-light shadow-sm px-4 py-2 fw-bold"
+      >My Bookings</a>
+    {% else %}
+    <a
+      href="{% url 'login' %}"
+      class="btn btn-lg btn-light me-2 shadow-sm px-4 py-2 fw-bold"
+      >Login</a>
+    <a
+      href="{% url 'register' %}"
+      class="btn btn-lg btn-outline-light shadow-sm px-4 py-2 fw-bold"
+      >Register</a>
+    {% endif %}
+  </div>
+</section>
+
+
+<!-- Features Section -->
+<section class="py-5 bg-light">
+  <div class="container">
+    <div class="row g-4 text-center">
+      <div class="col-md-4">
+        <div class="card border-0 shadow-sm p-4 h-100">
+          <div class="icon mb-3 text-primary fs-1">🌍</div>
+          <h4 class="fw-bold">Explore Destinations</h4>
+          <p class="text-muted">
+            Discover popular places and hidden gems worldwide with curated
+            travel options.
+          </p>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="card border-0 shadow-sm p-4 h-100">
+          <div class="icon mb-3 text-success fs-1">💳</div>
+          <h4 class="fw-bold">Easy Booking</h4>
+          <p class="text-muted">
+            Book tickets in just a few clicks with our secure and seamless
+            booking system.
+          </p>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="card border-0 shadow-sm p-4 h-100">
+          <div class="icon mb-3 text-danger fs-1">📌</div>
+          <h4 class="fw-bold">Manage Trips</h4>
+          <p class="text-muted">
+            Keep track of your bookings, payments, and travel history in one
+            dashboard.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA Section -->
+<section class="py-5 text-center bg-primary text-white">
+  <div class="container">
+    <h2 class="fw-bold mb-3">Ready for Your Next Adventure?</h2>
+    <p class="mb-4">Join thousands of travelers booking with us every day!</p>
+    <a
+      href="{% url 'search_travel' %}"
+      class="btn btn-light btn-lg px-4 shadow-sm"
+      >Start Booking</a
+    >
+  </div>
+</section>
+{% endblock %}

@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container my-5">
+    <h2 class="text-center mb-4">Passenger Details ({{ seat_count }} Seats)</h2>
+
+    <form method="post">
+        {% csrf_token %}
+        <div class="table-responsive">
+            <table class="table table-bordered table-striped align-middle text-center">
+                <thead class="table-dark">
+                    <tr>
+                        <th>#</th>
+                        <th>Full Name</th>
+                        <th>Age</th>
+                        <th>Gender</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for i in seat_range %}
+                    <tr>
+                        <td><strong>{{ i }}</strong></td>
+                        <td>
+                            <input 
+                                type="text" 
+                                name="name_{{ i }}" 
+                                class="form-control" 
+                                placeholder="Enter full name" 
+                                required>
+                        </td>
+                        <td>
+                            <input 
+                                type="number" 
+                                name="age_{{ i }}" 
+                                class="form-control text-center" 
+                                min="1" 
+                                required>
+                        </td>
+                        <td>
+                            <select name="gender_{{ i }}" class="form-select" required>
+                                <option value="" disabled selected>Select</option>
+                                <option value="Male">Male</option>
+                                <option value="Female">Female</option>
+                                <option value="Other">Other</option>
+                            </select>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        <div class="text-center mt-4">
+            <button type="submit" class="btn btn-success px-5 py-2">
+                Confirm Booking
+            </button>
+        </div>
+    </form>
+</div>
+{% endblock %}

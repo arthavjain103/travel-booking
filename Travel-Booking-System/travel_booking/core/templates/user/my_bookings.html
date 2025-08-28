@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2 style="margin-bottom: 20px; font-size: 24px; color: #333; font-weight: 600;">My Bookings</h2>
+
+<div style="overflow-x: auto;">
+    <table style="width: 100%; border-collapse: collapse; font-family: Arial, sans-serif; font-size: 14px; box-shadow: 0 2px 8px rgba(0,0,0,0.05); border-radius: 8px; overflow: hidden;">
+        <thead>
+            <tr style="background: linear-gradient(90deg, #f8f9fa, #e9ecef); text-align: left; font-weight: bold; color: #444;">
+                <th style="padding: 12px;">Booking Code</th>
+                <th style="padding: 12px;">Travel Type</th>
+                <th style="padding: 12px;">Travel Info</th>
+                <th style="padding: 12px;">Passengers</th>
+                <th style="padding: 12px;">Status</th>
+                <th style="padding: 12px;">Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for booking in bookings %}
+            <tr style="border-bottom: 1px solid #eee; transition: background 0.2s;">
+                <td style="padding: 12px; font-weight: 500; color: #222;">{{ booking.booking_code }}</td>
+                <td style="padding: 12px; text-transform: capitalize; color: #555;">{{ booking.travel_type }}</td>
+                <td style="padding: 12px; color: #444;">
+                    {% with booking.get_travel_option as travel %}
+                        <div><strong>{{ travel.name }}</strong></div>
+                        <div style="color: #666; font-size: 13px;">{{ travel.source }} → {{ travel.destination }}</div>
+                        <div style="color: #666; font-size: 13px;">{{ travel.departure_time|date:"Y-m-d H:i" }} → {{ travel.arrival_time|date:"Y-m-d H:i" }}</div>
+                        <div style="margin-top: 5px; font-weight: bold; color: #28a745;">₹{{ booking.total_price }}</div>
+                    {% endwith %}
+                </td>
+                <td style="padding: 12px; color: #555;">
+                    <ul style="margin: 0; padding-left: 18px;">
+                        {% for passenger in booking.passengers.all %}
+                           <li style="margin-bottom: 4px;">{{ passenger.name }} ({{ passenger.age }}, {{ passenger.gender }}) - <span style="color:#007bff;">Seat {{ passenger.seat_number }}</span></li>
+                        {% endfor %}
+                    </ul>
+                </td>
+                <td style="padding: 12px; font-weight: 600; color: {% if booking.status == 'Cancelled' %}#dc3545{% else %}#28a745{% endif %};">
+                    {{ booking.status }}
+                </td>
+                <td style="padding: 12px;">
+                    {% if booking.status != "Cancelled" and booking.booking_id %}
+                        <a href="{% url 'cancel_booking' booking.booking_id %}" style="padding: 6px 12px; background: #dc3545; color: white; text-decoration: none; border-radius: 4px; font-size: 13px; transition: background 0.2s;" onmouseover="this.style.background='#b02a37'" onmouseout="this.style.background='#dc3545'">
+                            Cancel
+                        </a>
+                    {% else %}
+                        <span style="color: gray; font-size: 13px;">Already Cancelled</span>
+                    {% endif %}
+                </td>
+            </tr>
+            <tr style="background: #fafafa; font-size: 12px;">
+                <td colspan="6" style="padding: 8px; color: #888;">
+                    DEBUG: Booking ID = {{ booking.id }} | Travel Type = {{ booking.travel_type }}
+                </td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="6" style="text-align: center; padding: 20px; color: #777;">No bookings found.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

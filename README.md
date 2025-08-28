@@ -165,17 +165,6 @@ Contributions are welcome! Please follow these steps:
 3. Commit your changes and push the branch.
 4. Submit a pull request.
 
----
 
-## License
 
-This project is licensed under the MIT License. See the `LICENSE` file for details.
 
----
-
-## Contact
-
-For any inquiries or support, please contact:
-
-- **Email**: support@travelbooking.com
-- **Website**: [Travel Booking](http://example.com)

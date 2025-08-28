@@ -111,6 +111,8 @@ MESSAGE_TAGS = {
     messages.WARNING: 'warning',
     messages.ERROR: 'danger',
 }
+ALLOWED_HOSTS = ['arthav123.pythonanywhere.com']
+
 
 
 # Internationalization
